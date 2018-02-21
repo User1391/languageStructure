@@ -1,2 +1,0 @@
-say: hi my dude/
-say: bye bro/
