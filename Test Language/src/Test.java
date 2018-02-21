@@ -29,7 +29,7 @@ import java.util.Scanner;
 	    	for (String step : steplist) {
 	    		String[] stepParameterValues = step.split(":");
 	    		
-	    		//int x = 0;
+	    		int x = 0;
 			/**	while (x <= stepParameterValues.length) {
 					stepParameterValues[x] = stepParameterValues[x].trim().toLowerCase();
 					x++;
@@ -39,11 +39,14 @@ import java.util.Scanner;
 	    		switch (stepParameterValues[0]) { //.substring(0)
 	    		
 	    		case "say": {
+	    			//Splits the string after say into words. This requires the words to be split by "-" 
+	    			//in order to have spaces between the words
 	    			String[] words = stepParameterValues[1].split("-");
 		    		
 		    		for (int word = 0; word < words.length; word++) {
 		    		System.out.print(words[word] + " ");
 		    		}
+		    		//To print next command on next line since the "say" uses print not println
 		    		System.out.println("");
 
 	    			break;
