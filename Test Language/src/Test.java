@@ -2,19 +2,21 @@
 
 	import java.io.*;
 import java.util.Scanner;
-import java.awt.*;
-import java.text.*;
-import javax.swing.*;
-import java.awt.font.*;
-import java.sql.*;
+
 	public class Test {
 	   
 		public static void main(String [] args)  {
 	    	/** Gets input from text file **/
 	    	//defines file name for use
 			String fileName = "temp.txt";
+	    	//try-catch for file location
+	    	Scanner fullIn = null;
+	    	try {
+	    		fullIn = new Scanner(new FileReader(fileName));
+	    	} catch (FileNotFoundException e) {
+	    		System.out.println("failed.");
+	    	}
 	    	Scanner in = null;
-			//try-catch for file location
 	    	try {
 				in = new Scanner(new FileReader(fileName));
 			} catch (FileNotFoundException e) {
@@ -32,26 +34,31 @@ import java.sql.*;
 				
 				}
 			
-			in.reset();
+	    	
 			
+			
+			//Should be adding "" to every part of stringArray for each block in the file
 			String[] stringArray = new String[blockCount];
 			for (int x = 0; x == blockCount;x++) {
 				stringArray[x] = "";
 			}
 			
+			//we are done with first scanner
+			in.close();
+			
+		
 			
 	    	
-	     while(in.hasNext()) {
-	    	int x = 0;
-	    	 stringArray[x] = in.next();
+	     for(int x = 0; x < blockCount; x++) {
+	    	
+	    	 stringArray[x]=fullIn.next();
 	    	   
 	    	  
 			System.out.println(stringArray[x]);
-	    	  x++;
-	    	  
-	    	  
+	    	  	  
 	    	}
-	    	
+	     //we are done with second scanner
+	     fullIn.close();
 	    
 	    	}
 	    }
