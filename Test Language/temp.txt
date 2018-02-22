@@ -1,2 +1,4 @@
-say hi my dude /
-say bye bro /
+say bob
+as
+lnsay hi
+say hi

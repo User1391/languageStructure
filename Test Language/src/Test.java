@@ -54,12 +54,26 @@ import java.util.Scanner;
 	    	 stringArray[x]=fullIn.next();
 	    	   
 	    	  
-			System.out.println(stringArray[x]);
+		
 	    	  	  
 	    	}
 	     //we are done with second scanner
 	     fullIn.close();
 	    
+	     for (int i = 0; i < stringArray.length; i++) {
+			
+			if (stringArray[i].trim().toLowerCase().equals("say")) {
+				System.out.println(stringArray[i+1]);
+			}
+			if (stringArray[i].trim().toLowerCase().equals("lnsay")){
+				System.out.print(stringArray[i+1] + " ");
+			}
+		}
+	     
+	     
+	     
+	     
+	     
 	    	}
 	    }
 	
