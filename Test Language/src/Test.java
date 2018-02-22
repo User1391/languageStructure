@@ -8,6 +8,7 @@ import java.util.Scanner;
 	    	/** Gets input from text file **/
 	    	String fileName = "temp.txt";
 	    	Scanner in = null;
+	    	Scanner variableScanner = null;
 			try {
 				in = new Scanner(new FileReader(fileName));
 			} catch (FileNotFoundException e) {
@@ -43,26 +44,42 @@ import java.util.Scanner;
 	    			//Splits the string after say into words. This requires the words to be split by "-" 
 	    			//in order to have spaces between the words
 	    			String[] words = stepParameterValues[1].split("-");
+	    			//scans for if there is a file with the name and if not just print the words
+	    			try {
+	    				variableScanner = new Scanner(new FileReader(stepParameterValues[1] + ".txt"));
+	    				StringBuilder sbVariable = new StringBuilder();
+	    		    	while(variableScanner.hasNext()) {
+	    		    	    sbVariable.append(variableScanner.next());
+	    		    	}
+	    		    	System.out.println(sbVariable);
+	    			} 
+	    			catch (FileNotFoundException e) {
+	    				for (int word = 0; word < words.length; word++) {
+	    		    		System.out.print(words[word] + " ");
+	    		    		}
+	    		    		//To print next command on next line since the "say" uses print not println
+	    		    		System.out.println("");
+	    			}
 		    		
-		    		for (int word = 0; word < words.length; word++) {
-		    		System.out.print(words[word] + " ");
-		    		}
-		    		//To print next command on next line since the "say" uses print not println
-		    		System.out.println("");
+		    		
 
 	    			break;
 	    		}
 	    		case "variable": {
-	    			String variable = stepParameterValues[1];
-	    			try
-	    				 (Writer writer = new BufferedWriter(new OutputStreamWriter(
-	    			              new FileOutputStream("variable_name.txt"), "utf-8"))) {
-	    			   writer.write(variable);
-	    				 }
+	    			String[] variable = stepParameterValues[1].split("=");
+	
+	    				 File variableFile = new File(variable[0] + ".txt");
+	    				//Creates a new file with the name of the variable
+	    				 try {
+	    					 FileWriter writer = new FileWriter(variableFile);
+		    				 writer.write(variable[1]);
+						writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+	    				 
 	    			
-	    		 catch (IOException e) {
-	    			e.printStackTrace();
-			}
+	    
 	    		}
 	    		
 	    	}
