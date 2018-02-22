@@ -11,9 +11,11 @@ import java.sql.*;
 	   
 		public static void main(String [] args)  {
 	    	/** Gets input from text file **/
-	    	String fileName = "temp.txt";
+	    	//defines file name for use
+			String fileName = "temp.txt";
 	    	Scanner in = null;
-			try {
+			//try-catch for file location
+	    	try {
 				in = new Scanner(new FileReader(fileName));
 			} catch (FileNotFoundException e) {
 				
@@ -21,20 +23,22 @@ import java.sql.*;
 				e.printStackTrace();
 			}
 	    	
-			String[] changer;
+	    	
+	    	
+			//finds the amount of blocks in the file
 			int blockCount = 0;
-			for (;!in.hasNext();in.next()) {
+			for (;in.hasNext() == true;in.next()) {
 				blockCount++;
-					
 				
-			}
+				}
+			
 			in.reset();
 			
-			String[] stringArray = null;
-			for (int x = 0; stringArray.length==blockCount;x++) {
+			String[] stringArray = new String[blockCount];
+			for (int x = 0; x == blockCount;x++) {
 				stringArray[x] = "";
 			}
-			System.out.println(stringArray.length);
+			
 			
 	    	
 	     while(in.hasNext()) {
@@ -44,6 +48,8 @@ import java.sql.*;
 	    	  
 			System.out.println(stringArray[x]);
 	    	  x++;
+	    	  
+	    	  
 	    	}
 	    	
 	    
