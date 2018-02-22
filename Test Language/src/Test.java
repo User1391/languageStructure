@@ -19,6 +19,7 @@ import java.util.Scanner;
 	    	    sb.append(in.next());
 	    	}
 	    	
+	    	
 	    	in.close();
 	    	String outString = sb.toString();
 	    	String command = sb.toString();
@@ -51,10 +52,23 @@ import java.util.Scanner;
 
 	    			break;
 	    		}
-	    		
+	    		case "variable": {
+	    			String variable = stepParameterValues[1];
+	    			try
+	    				 (Writer writer = new BufferedWriter(new OutputStreamWriter(
+	    			              new FileOutputStream("variable_name.txt"), "utf-8"))) {
+	    			   writer.write(variable);
+	    				 }
+	    			
+	    		 catch (IOException e) {
+	    			e.printStackTrace();
+			}
 	    		}
+	    		
+	    	}
 	    	}
 	    }
 	}
+	
 
 
