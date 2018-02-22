@@ -17,7 +17,7 @@ import java.sql.*;
 				in = new Scanner(new FileReader(fileName));
 			} catch (FileNotFoundException e) {
 				
-				System.out.println("Error: File " + fileName + " has not been found. Try adjusting the file address, or moving the file to the correct location." );
+				System.out.println("Error: File " + fileName + " has not been found. Try adjusting the file address or moving the file to the correct location." );
 				e.printStackTrace();
 			}
 	    	
