@@ -1,0 +1,7 @@
+say 'what is up'/
+say 'hello it is me'/
+var word = happiness is good/
+var number = 44/
+say number/
+say word/
+

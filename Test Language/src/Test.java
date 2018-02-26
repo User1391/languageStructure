@@ -1,6 +1,5 @@
-
-
-	import java.io.*;
+import java.io.*;
+import java.util.Vector;
 import java.util.Scanner;
 
 	public class Test {
@@ -15,73 +14,91 @@ import java.util.Scanner;
 				System.out.println("Error: File " + fileName + " has not been found. Try adjusting the file address, or moving the file to the correct location." );
 				e.printStackTrace();
 			}
-	    	StringBuilder sb = new StringBuilder();
+	    	int charNum = 0;
+	    	//Creates a vector which has no size limit
+	    	Vector code = new Vector();
 	    	while(in.hasNext()) {
-	    	    sb.append(in.next());
+	    	    code.addElement(in.next());	
 	    	}
-	    	
-	    	
+	    	//This method always seperates each word
+	    	//But the append method ignores spaces
 	    	in.close();
-	    	String outString = sb.toString();
-	    	String command = sb.toString();
 	    	
+	    	System.out.println(code);	 
+	    
+	    	StringBuilder parser = new StringBuilder();
 	    	
-	    	/** Reads code and processes commands **/
-	    	String[] steplist = command.split("/");
-	    	for (String step : steplist) {
-	    		String[] stepParameterValues = step.split(":");
+	    	int commandIndex = 0;
+	    	int variableNameIndex;
+	    	int variableNameLength;
+	    	int commandLength;
+	    	
+	    	//The parser seperates each command by detecting for / and 
+	    	//And then clears after each execution of the command
+	    	for (int i = 0; i < code.size(); i++) {
+	    		variableNameIndex = commandIndex + 1;
+	    	if (code.elementAt(i).toString().endsWith("/") == false) {
+	    	    parser.append(code.elementAt(i) + " ");
+	    	} else {
+	    //This appends the last word with the / on it
+	    	parser.append(code.elementAt(i));
+
 	    		
-	    		int x = 0;
-			/**	while (x <= stepParameterValues.length) {
-					stepParameterValues[x] = stepParameterValues[x].trim().toLowerCase();
-					x++;
-	    		}
-	    		**/
+	    		variableNameLength = code.elementAt(variableNameIndex).toString().length();
+	    		commandLength = code.elementAt(commandIndex).toString().length();
+	    	
 	    		
-	    		switch (stepParameterValues[0]) { //.substring(0)
+	    		switch (code.elementAt(commandIndex).toString()) { 
 	    		
 	    		case "say": {
-	    			//Splits the string after say into words. This requires the words to be split by "-" 
-	    			//in order to have spaces between the words
-	    			String[] words = stepParameterValues[1].split("-");
-	    			//scans for if there is a file with the name and if not just print the words
-	    			try {
-	    				variableScanner = new Scanner(new FileReader(stepParameterValues[1] + ".txt"));
-	    				StringBuilder sbVariable = new StringBuilder();
-	    		    	while(variableScanner.hasNext()) {
-	    		    	    sbVariable.append(variableScanner.next());
-	    		    	}
-	    		    	System.out.println(sbVariable);
-	    			} 
-	    			catch (FileNotFoundException e) {
-	    				for (int word = 0; word < words.length; word++) {
-	    		    		System.out.print(words[word] + " ");
-	    		    		}
-	    		    		//To print next command on next line since the "say" uses print not println
-	    		    		System.out.println("");
+	    			//Detects if the phrase is surrounded by quotes and if not
+	    			//searches for a variable
+	 
+	    			if (parser.substring(4,parser.length()).startsWith("'") && parser.substring(4,parser.length()-1).endsWith("'")) {
+	    				System.out.println(parser.substring(5,parser.length()-2));
+	    				
+	    			} else {
+	    				try {
+		    				variableScanner = new Scanner(new FileReader(parser.substring(4,parser.length()-1) + ".txt"));
+		    				StringBuilder sbVariable = new StringBuilder();
+		    		    	while(variableScanner.hasNext()) {
+		    		    		System.out.print(variableScanner.next() + " ");
+		    		    		
+		    		    	}
+		    		    	System.out.println(" ");
+		    			} 
+		    			catch (FileNotFoundException e) {
+		    				System.out.println("Error: File " + fileName + " has not been found. Try adjusting the file address, or moving the file to the correct location." );
+		    				e.printStackTrace();
+		    		    		}
 	    			}
+	    			
 		    		
 		    		
 
 	    			break;
 	    		}
-	    		case "variable": {
-	    			String[] variable = stepParameterValues[1].split("=");
-	
-	    				 File variableFile = new File(variable[0] + ".txt");
+	    		case "var": {
+	    			
+	                 
+	    				 File variableFile = new File(code.elementAt(variableNameIndex).toString() + ".txt");
 	    				//Creates a new file with the name of the variable
 	    				 try {
 	    					 FileWriter writer = new FileWriter(variableFile);
-		    				 writer.write(variable[1]);
+		    				 writer.write(parser.substring(commandLength + variableNameLength + 4, parser.length()-1));
 						writer.close();
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 	    				 
+	    				 
 	    			
 	    
 	    		}
-	    		
+	    		}
+	    		parser.delete(0, parser.length());
+	    		commandIndex = i+1;
+	    	
 	    	}
 	    	}
 	    }

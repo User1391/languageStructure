@@ -1,5 +1,0 @@
-variable:pi=3/
-variable:string=hello/
-say:pi/
-say:string/
-say:hi-there/
